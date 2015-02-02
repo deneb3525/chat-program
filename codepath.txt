@@ -1,0 +1,14 @@
+
+
+log in  <-> username db  :: send: userlogin/pw return:userID/auth/username
+
+.
+.
+v
+
+chat page <-> chatDB  :: send: request return:old messages
+	  <-> faye :: send username/userID/message
+		.
+		.
+		v
+		chatDB  :: send userID messages
