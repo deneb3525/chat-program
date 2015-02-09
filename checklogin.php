@@ -2,8 +2,8 @@
 <?php
 	include 'DBAccess.php';
 	
-	$goober = new BaseDAO();
-	$db = $goober->connect();
+	$baseDAO = new BaseDAO();
+	$db = $baseDAO->connect();
 
 $tbl_name="users"; // Table name
 
@@ -18,7 +18,7 @@ $mypassword = stripslashes($mypassword);
 //$mypassword = mysql_real_escape_string($mypassword);
 
 $sql="SELECT * FROM $tbl_name WHERE loginname='$myusername' and password='$mypassword' and active='1'";
-$result=mysqli_query($db,$sql);
+$result=baseDAO->query($db,$sql);
 
 $row = $result->fetch_row();
 
