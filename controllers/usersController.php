@@ -1,0 +1,68 @@
+<?php
+
+/* 
+ * This should handle all user related logic
+ * 
+ * Current files that you have that should have their logic pulled into here are:
+ * checkcreation.php
+ * checklogin.php
+ * 
+ */
+
+class usersController {
+    public function createUser($post)
+    {
+        // username and password sent from form
+        $myusername=$post['myusername'];
+        $mypassword=$post['mypassword'];
+        $mydisplayname=$post['mydisplayname'];
+        //TODO: put in Front end checks.  Rather than strip the data out, we should try to detect bad characters and throw an error.
+        // To protect MySQL injection (more detail about MySQL injection)
+        $myusername = stripslashes($myusername);
+        $mypassword = stripslashes($mypassword);
+        //$myusername = mysql_real_escape_string($myusername);
+        //$mypassword = mysql_real_escape_string($mypassword);
+
+        $sql="SELECT * FROM $tbl_name WHERE loginname='$myusername' and active='1'";
+        $result=mysqli_query($db,$sql);
+
+        // Mysql_num_row is counting table row
+        $count = $result->num_rows;
+
+        // There must be no matches
+
+        if($count==0){
+            // Add the username and password to the DB, then register the username and display name.
+            // Register $myusername, $mypassword and redirect to file "login_success.php"
+            $sql="insert into chatroom.users (loginname, password, displayname, active) values ('$myusername', '$mypassword', '$mydisplayname', 1);";
+            echo $sql;
+            return mysqli_query($db, $sql);
+        }
+        
+        //TODO: wrap things that call controllers in try/catch blocks
+        throw Exception("Username already in use");
+    }
+    
+    public function updateUser()
+    {
+        
+    }
+    
+    private function validateUser($user)
+    {
+        
+    }
+    
+    public function loginUser($username, $password)
+    {
+        //TODO: put in Front end checks.  Rather than strip the data out, we should try to detect bad characters and throw an error.
+        // To protect MySQL injection (more detail about MySQL injection)
+        $username = stripslashes($username);
+        $password = stripslashes($password);
+
+        $sql="SELECT * FROM users WHERE loginname='".$myusername."' and password='".$mypassword."' and active='1'";
+        $result=mysqli_query($db,$sql);
+
+        return $result->fetch_row();
+    }
+}
