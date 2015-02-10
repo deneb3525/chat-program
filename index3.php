@@ -8,7 +8,7 @@ $db = $goober->connect();
 
 $tbl_name="chatlog"; // Table name
 
-$sql="SELECT chatlog.messagtxt, users.displayname FROM chatlog inner join users on users.userID = chatlog.userID order by chatlog.idchatlog desc;";
+$sql="SELECT chatlog.messagetxt, users.displayname FROM chatlog inner join users on users.userID = chatlog.userID order by chatlog.idchatlog desc;";
 $result=mysqli_query($db,$sql);
 
 ?>
@@ -43,7 +43,7 @@ $result=mysqli_query($db,$sql);
 		<?php
 		
 		while($row = mysqli_fetch_assoc($result)) { ?>
-		<?php echo $row["displayname"]; ?>: <?php echo $row["messagtxt"]; ?> <br>
+		<?php echo $row["displayname"]; ?>: <?php echo $row["messagetxt"]; ?> <br>
 		<?php } ?>
 		
         
