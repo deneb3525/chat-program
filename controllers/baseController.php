@@ -10,7 +10,7 @@
 class baseController {
     protected function DBconnect()
     {
-        include 'BaseDAO.php';
+        require_once 'BaseDAO.php';
 	
 	$baseDAO = new BaseDAO();
 	return $baseDAO->connect();
