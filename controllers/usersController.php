@@ -67,9 +67,10 @@ class usersController extends baseController{
         
         if($result->num_rows != 1)
             throw new Exception ("Wrong Username or Password");
-
-        $row=$result->fetch_row();
-		$this->set_session($row[0],$row[3]);
+		
+		while($row = mysqli_fetch_assoc($result)) {
+		$this->set_session($row["userID"],$row["displayname"]);
+		}
     }
 	private function set_session($userID, $displayname){
 		session_start();
