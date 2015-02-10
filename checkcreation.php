@@ -6,7 +6,7 @@ require_once 'controllers/controllerFactory.php';
 try
     {
         $usersController = controllerFactory::getUsersController();
-        $row = $usersController->createUser($_POST['myusername'], $_POST['mypassword'],$_POST['mydisplayname']);
+        $usersController->createUser($_POST['myusername'], $_POST['mypassword'],$_POST['mydisplayname']);
 		
 		header("location:index3.php");
 

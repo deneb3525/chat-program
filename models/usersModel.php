@@ -1,5 +1,7 @@
 <?php
 
+require_once 'baseModel.php';
+
 class usersModel extends baseModel
 {
     public $loginname;
@@ -8,8 +10,15 @@ class usersModel extends baseModel
     private $password;
     public $active;
     
+    /**
+     * 
+     * @param array $rows, generated from a sql query
+     */
     public function create($rows)
     {
-        
+        foreach($rows as $k => $v)
+        {
+            $this->$k = $v;
+        }
     }
 }

@@ -1,16 +1,15 @@
 <?php
-session_start();
+    session_start();
 
-require_once 'BaseDAO.php';
-	
-$goober = new BaseDAO();
-$db = $goober->connect();
+    require_once 'BaseDAO.php';
 
-$tbl_name="chatlog"; // Table name
+    $goober = new BaseDAO();
+    $db = $goober->connect();
 
-$sql="SELECT chatlog.messagtxt, users.displayname FROM chatlog inner join users on users.userID = chatlog.userID order by chatlog.idchatlog asc;";
-$result=mysqli_query($db,$sql);
+    $tbl_name="chatlog"; // Table name
 
+    $sql="SELECT chatlog.messagtxt, users.displayname FROM chatlog inner join users on users.userID = chatlog.userID order by chatlog.idchatlog asc;";
+    $result=mysqli_query($db,$sql);
 ?>
 
 <!DOCTYPE html>
@@ -28,12 +27,11 @@ $result=mysqli_query($db,$sql);
     <body>
 		
 <textarea name="comments" cols="80" rows="10" id=output readonly>
-<?php
-		
-while($row = mysqli_fetch_assoc($result)) { ?>
-<?php echo $row["displayname"]; ?>: <?php echo $row["messagtxt"]; ?>
-
-<?php } ?>
+<?php	
+    while($row = mysqli_fetch_assoc($result)) { 
+        echo $row["displayname"].": ".$row["messagtxt"];
+    }
+?>
 --------------------
 </textarea><br>
 		

@@ -9,8 +9,10 @@
  * 
  */
 require_once 'baseController.php';
+require_once 'models/usersModel.php';
 
 class usersController extends baseController{
+    
     public function createUser($myusername, $mypassword,$mydisplayname)
     {
         $DBObj = $this->DBconnect();
@@ -35,12 +37,11 @@ class usersController extends baseController{
             // Register $myusername, $mypassword and redirect to file "login_success.php"
             $sql="insert into chatroom.users (loginname, password, displayname, active) values ('$myusername', '$mypassword', '$mydisplayname', 1);";
             echo $sql;
-			mysqli_query($DBObj, $sql);
-			$this->loginUser($myusername, $mypassword);
+            mysqli_query($DBObj, $sql);
+            $this->loginUser($myusername, $mypassword);
             return true;
         }
         
-        //TODO: wrap things that call controllers in try/catch blocks
         throw new Exception("Username already in use");
     }
     
@@ -68,12 +69,14 @@ class usersController extends baseController{
         if($result->num_rows != 1)
             throw new Exception ("Wrong Username or Password");
 
-        $row=$result->fetch_row();
-		$this->set_session($row[0],$row[3]);
+        $userModel = new usersModel();
+        $userModel->create(mysqli_fetch_assoc($result->fetch_row()));
+        $this->set_session($userModel->userID,$userModel->displayname);
     }
-	private function set_session($userID, $displayname){
-		session_start();
+    
+    private function set_session($userID, $displayname){
+        session_start();
         $_SESSION['userID']=$userID;
         $_SESSION['displayname']=$displayname;
-	}
+    }
 }
