@@ -7,7 +7,7 @@ class usersModel extends baseModel
     public $loginname;
     public $userID;
     public $displayname;
-    public $password;
+    private $password;
     public $active;
     
     /**
@@ -21,4 +21,13 @@ class usersModel extends baseModel
             $this->$k = $v;
         }
     }
+	
+	public function comparePassword($suppliedPassword){
+		
+		if(password_verify($suppliedPassword, $this->password)){
+			return true;
+		} else{
+			throw new Exception ("Wrong Username or Password");
+		}
+	}
 }
