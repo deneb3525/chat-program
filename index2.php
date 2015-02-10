@@ -34,12 +34,10 @@
 </textarea><br>
 		
 	
-		<a href="logout.php">Log out </a>
-        <div id="prechat">TO DO write content<br /></div>
+		
         <input type="text" id="userinput">
-        <button id="send">Click me</button>
-	   <button id="second">Click here</button>
-           
+        <button id="send">Send</button>
+        <br><a href="logout.php">Log out </a>   
   <div id="chat">
     <script id="chatline" type="text/html">
       <div class='line'><div class='user'>{{ user }}</div>{{ text }}</div>
@@ -72,11 +70,12 @@
 				$('#userinput').val('');
             }
         });
-
-		 $('#second').click(function(e) {
-            client.publish('/messages', { text: 'goodbye from browser'})
-        });
 		
+		$('#send').click(function(e) {
+			client.publish('/messages', {text: $('#userinput').val(), userN: userName, userI: userId})
+			$('#userinput').val('');
+		});
+
 		client.subscribe('/messages', function(message) {
 			$('#output').append(message.userN + ': ' + message.text + '\n')
 			var textarea = document.getElementById("output");
