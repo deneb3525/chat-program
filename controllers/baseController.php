@@ -8,5 +8,11 @@
  */
 
 class baseController {
-    
+    protected function DBconnect()
+    {
+        include 'BaseDAO.php';
+	
+	$baseDAO = new BaseDAO();
+	return $baseDAO->connect();
+    }
 }
