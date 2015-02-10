@@ -6,14 +6,9 @@ require_once 'controllers/controllerFactory.php';
 try
     {
         $usersController = controllerFactory::getUsersController();
-        $row = $usersController->createUser($_POST['myusername'], $_POST['mypassword'],$_POST['mydisplayname']); ?>
+        $row = $usersController->createUser($_POST['myusername'], $_POST['mypassword'],$_POST['mydisplayname']);
 		
-		<form method="post" action="checklogin.php">
-		<input type="hidden" name="myusername" value="<?php $_POST['myusername']?>">
-		<input type="hidden" name="mypassword" value="<?php $_POST['mypassword']?>">
-		<input type="submit">
-		</form>
-		<?php
+		header("location:index3.php");
 
     }
     catch (Exception $e)
