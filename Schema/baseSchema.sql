@@ -10,6 +10,6 @@ create table users(
 create table chatlog(
 	idchatlog int not null auto_increment,
 	userID int,
-	message char(255),
+	messagetxt char(255),
 	PRIMARY KEY (idchatlog)
 );

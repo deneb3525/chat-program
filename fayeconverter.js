@@ -19,10 +19,10 @@ client.subscribe('/messages', function(message) {
 	
 	// escape the recieved message, display it and add it to the chat database
 	message.text = mysql_real_escape_string(message.text);
-	var tempstring = 'INSERT INTO chatlog (userID, messagtxt) VALUES (\'' + message.userI + '\', \'' + message.text + '\');';
+	var tempstring = 'INSERT INTO chatlog (userID, messagetxt) VALUES (\'' + message.userI + '\', \'' + message.text + '\');';
     console.log(tempstring);
 	
-	connection.query('INSERT INTO chatlog (userID, messagtxt) VALUES (\'' + message.userI + '\', \'' + message.text + '\');',
+	connection.query('INSERT INTO chatlog (userID, messagetxt) VALUES (\'' + message.userI + '\', \'' + message.text + '\');',
 		function(err, rows, fields){
 			if (err) throw err;
 		}
