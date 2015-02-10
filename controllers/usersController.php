@@ -11,13 +11,10 @@
 include 'baseController.php';
 
 class usersController extends baseController{
-    public function createUser($post)
+    public function createUser($myusername, $mypassword,$mydisplayname)
     {
         $DBObj = $this->DBconnect();
         // username and password sent from form
-        $myusername=$post['myusername'];
-        $mypassword=$post['mypassword'];
-        $mydisplayname=$post['mydisplayname'];
         //TODO: put in Front end checks.  Rather than strip the data out, we should try to detect bad characters and throw an error.
         // To protect MySQL injection (more detail about MySQL injection)
         $myusername = stripslashes($myusername);
@@ -25,7 +22,7 @@ class usersController extends baseController{
         //$myusername = mysql_real_escape_string($myusername);
         //$mypassword = mysql_real_escape_string($mypassword);
 
-        $sql="SELECT * FROM $tbl_name WHERE loginname='$myusername' and active='1'";
+        $sql="SELECT * FROM users WHERE loginname='$myusername' and active='1'";
         $result=mysqli_query($DBObj,$sql);
 
         // Mysql_num_row is counting table row
