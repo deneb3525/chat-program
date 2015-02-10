@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include 'BaseDAO.php';
+require_once 'BaseDAO.php';
 	
 $goober = new BaseDAO();
 $db = $goober->connect();

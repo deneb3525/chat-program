@@ -8,7 +8,7 @@
  * checklogin.php
  * 
  */
-include 'baseController.php';
+require_once 'baseController.php';
 
 class usersController extends baseController{
     public function createUser($myusername, $mypassword,$mydisplayname)

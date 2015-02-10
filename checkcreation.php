@@ -1,5 +1,7 @@
 <?php
-include 'controllers\controllerFactory.php';
+
+require_once 'BaseDAO.php';
+require_once 'controllers/controllerFactory.php';
 
 try
     {
