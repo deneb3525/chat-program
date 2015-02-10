@@ -8,7 +8,13 @@ class controllerFactory
 {
     static function getUsersController()
     {
-        include('usersController.php');
+        require_once ('usersController.php');
         return new usersController();
+    }
+    
+    static function getChatlogController()
+    {
+        require_once ('chatlogController.php');
+        return new chatlogController();
     }
 }
