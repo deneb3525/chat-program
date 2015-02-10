@@ -11,10 +11,4 @@ class controllerFactory
         include('usersController.php');
         return new usersController();
     }
-    
-    function getChatlogController()
-    {
-        include('chatlogController.php');
-        return new chatlogController();
-    }
 }

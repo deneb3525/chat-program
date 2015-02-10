@@ -9,9 +9,10 @@
  * 
  */
 
-class usersController {
+class usersController extends baseController{
     public function createUser($post)
     {
+        $DBObj = $this->DBconnect();
         // username and password sent from form
         $myusername=$post['myusername'];
         $mypassword=$post['mypassword'];
@@ -24,7 +25,7 @@ class usersController {
         //$mypassword = mysql_real_escape_string($mypassword);
 
         $sql="SELECT * FROM $tbl_name WHERE loginname='$myusername' and active='1'";
-        $result=mysqli_query($db,$sql);
+        $result=mysqli_query($DBObj,$sql);
 
         // Mysql_num_row is counting table row
         $count = $result->num_rows;
@@ -36,7 +37,7 @@ class usersController {
             // Register $myusername, $mypassword and redirect to file "login_success.php"
             $sql="insert into chatroom.users (loginname, password, displayname, active) values ('$myusername', '$mypassword', '$mydisplayname', 1);";
             echo $sql;
-            return mysqli_query($db, $sql);
+            return mysqli_query($DBObj, $sql);
         }
         
         //TODO: wrap things that call controllers in try/catch blocks
@@ -55,13 +56,17 @@ class usersController {
     
     public function loginUser($username, $password)
     {
+        $DBObj = $this->DBconnect();
         //TODO: put in Front end checks.  Rather than strip the data out, we should try to detect bad characters and throw an error.
         // To protect MySQL injection (more detail about MySQL injection)
         $username = stripslashes($username);
         $password = stripslashes($password);
 
         $sql="SELECT * FROM users WHERE loginname='".$myusername."' and password='".$mypassword."' and active='1'";
-        $result=mysqli_query($db,$sql);
+        $result=mysqli_query($DBObj,$sql);
+        
+        if($result->num_rows != 1)
+            throw new Exception ("Wrong Username or Password");
 
         return $result->fetch_row();
     }
