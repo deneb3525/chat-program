@@ -6,8 +6,6 @@
     $goober = new BaseDAO();
     $db = $goober->connect();
 
-    $tbl_name="chatlog"; // Table name
-
     $sql="SELECT chatlog.messagtxt, users.displayname FROM chatlog inner join users on users.userID = chatlog.userID order by chatlog.idchatlog asc;";
     $result=mysqli_query($db,$sql);
 ?>
