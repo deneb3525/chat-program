@@ -1,6 +1,6 @@
 
 <?php
-	include 'DBAccess.php';
+	include 'BaseDAO.php';
 	
 	$baseDAO = new BaseDAO();
 	$db = $baseDAO->connect();
