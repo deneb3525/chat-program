@@ -1,13 +1,10 @@
 <?php
     session_start();
 
-    require_once 'BaseDAO.php';
+    require_once 'controllers\controllerFactory.php';
 
-    $goober = new BaseDAO();
-    $db = $goober->connect();
-
-    $sql="SELECT chatlog.messagtxt, users.displayname FROM chatlog inner join users on users.userID = chatlog.userID order by chatlog.idchatlog asc;";
-    $result=mysqli_query($db,$sql);
+    $chatlogController = controllerFactory::getChatlogController();
+    $lines = $chatlogController->initializeChat();
 ?>
 
 <!DOCTYPE html>
@@ -26,8 +23,9 @@
 		
 <textarea name="comments" cols="80" rows="10" id=output readonly>
 <?php	
-    while($row = mysqli_fetch_assoc($result)) { 
-        echo $row["displayname"].": ".$row["messagtxt"];
+    foreach($lines as $v)
+    {
+        echo $v."\n";
     }
 ?>
 --------------------
