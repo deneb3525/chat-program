@@ -11,13 +11,10 @@
 require_once 'baseController.php';
 
 class usersController extends baseController{
-    public function createUser($post)
+    public function createUser($myusername, $mypassword,$mydisplayname)
     {
         $DBObj = $this->DBconnect();
         // username and password sent from form
-        $myusername=$post['myusername'];
-        $mypassword=$post['mypassword'];
-        $mydisplayname=$post['mydisplayname'];
         //TODO: put in Front end checks.  Rather than strip the data out, we should try to detect bad characters and throw an error.
         // To protect MySQL injection (more detail about MySQL injection)
         $myusername = stripslashes($myusername);
@@ -25,7 +22,7 @@ class usersController extends baseController{
         //$myusername = mysql_real_escape_string($myusername);
         //$mypassword = mysql_real_escape_string($mypassword);
 
-        $sql="SELECT * FROM $tbl_name WHERE loginname='$myusername' and active='1'";
+        $sql="SELECT * FROM users WHERE loginname='$myusername' and active='1'";
         $result=mysqli_query($DBObj,$sql);
 
         // Mysql_num_row is counting table row
@@ -38,11 +35,13 @@ class usersController extends baseController{
             // Register $myusername, $mypassword and redirect to file "login_success.php"
             $sql="insert into chatroom.users (loginname, password, displayname, active) values ('$myusername', '$mypassword', '$mydisplayname', 1);";
             echo $sql;
-            return mysqli_query($DBObj, $sql);
+			mysqli_query($DBObj, $sql);
+			$this->loginUser($myusername, $mypassword);
+            return true;
         }
         
         //TODO: wrap things that call controllers in try/catch blocks
-        throw Exception("Username already in use");
+        throw new Exception("Username already in use");
     }
     
     public function updateUser()
@@ -69,6 +68,12 @@ class usersController extends baseController{
         if($result->num_rows != 1)
             throw new Exception ("Wrong Username or Password");
 
-        return $result->fetch_row();
+        $row=$result->fetch_row();
+		$this->set_session($row[0],$row[3]);
     }
+	private function set_session($userID, $displayname){
+		session_start();
+        $_SESSION['userID']=$userID;
+        $_SESSION['displayname']=$displayname;
+	}
 }
