@@ -35,6 +35,7 @@ class usersController extends baseController{
         if($count==0){
             // Add the username and password to the DB, then register the username and display name.
             // Register $myusername, $mypassword and redirect to file "login_success.php"
+			$mypassword = password_hash($mypassword, PASSWORD_DEFAULT);
             $sql="insert into chatroom.users (loginname, password, displayname, active) values ('$myusername', '$mypassword', '$mydisplayname', 1);";
             echo $sql;
             mysqli_query($DBObj, $sql);
@@ -54,24 +55,11 @@ class usersController extends baseController{
     {
         
     }
-    
+	
+	
     public function loginUser($username, $password)
     {
-        $DBObj = $this->DBconnect();
-        //TODO: put in Front end checks.  Rather than strip the data out, we should try to detect bad characters and throw an error.
-        // To protect MySQL injection (more detail about MySQL injection)
-        $username = stripslashes($username);
-        $password = stripslashes($password);
-
-        $sql="SELECT * FROM users WHERE loginname='".$username."' and password='".$password."' and active='1'";
-        $usersModel = new usersModel();
-        $result = mysqli_query($DBObj,$sql);
-        $usersModel->create(mysqli_fetch_assoc($result));
-        
-        if($result->num_rows != 1)
-            throw new Exception ("Wrong Username or Password");
-        
-        $this->set_session($usersModel->userID,$$usersModel->displayname);
+		$this->authenticateUser($username, $password);
     }
     
     private function set_session($userID, $displayname){
@@ -79,4 +67,24 @@ class usersController extends baseController{
         $_SESSION['userID']=$userID;
         $_SESSION['displayname']=$displayname;
     }
+	
+	private function authenticateUser($username, $password){
+		$DBObj = $this->DBconnect();
+        
+		$sql="SELECT * FROM users WHERE loginname='".$username."' and active='1'";
+        $usersModel = new usersModel();
+        $result = mysqli_query($DBObj,$sql);
+        $usersModel->create(mysqli_fetch_assoc($result));
+        
+		if($result->num_rows != 1)
+            throw new Exception ("Wrong Username or Password");
+        
+		if(password_verify($password, $usersModel->password)){
+			$this->set_session($usersModel->userID,$usersModel->displayname);
+			return true;
+		} else{
+			throw new Exception ("Wrong Username or Password");
+		}
+	}
+    
 }

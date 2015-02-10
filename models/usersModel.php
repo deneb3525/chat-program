@@ -7,7 +7,7 @@ class usersModel extends baseModel
     public $loginname;
     public $userID;
     public $displayname;
-    private $password;
+    public $password;
     public $active;
     
     /**
