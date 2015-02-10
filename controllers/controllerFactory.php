@@ -6,7 +6,7 @@
 
 class controllerFactory
 {
-    function getUsersController()
+    static function getUsersController()
     {
         include('usersController.php');
         return new usersController();

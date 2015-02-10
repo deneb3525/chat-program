@@ -8,6 +8,7 @@
  * checklogin.php
  * 
  */
+include 'baseController.php';
 
 class usersController extends baseController{
     public function createUser($post)
@@ -62,7 +63,7 @@ class usersController extends baseController{
         $username = stripslashes($username);
         $password = stripslashes($password);
 
-        $sql="SELECT * FROM users WHERE loginname='".$myusername."' and password='".$mypassword."' and active='1'";
+        $sql="SELECT * FROM users WHERE loginname='".$username."' and password='".$password."' and active='1'";
         $result=mysqli_query($DBObj,$sql);
         
         if($result->num_rows != 1)

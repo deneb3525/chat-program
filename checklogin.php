@@ -1,5 +1,6 @@
 
 <?php
+	include 'controllers\controllerFactory.php';
 
     try
     {

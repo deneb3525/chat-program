@@ -1,5 +1,16 @@
 <?php
 include 'BaseDAO.php';
+
+try
+    {
+        $usersController = controllerFactory::getUsersController();
+        $row = $usersController->createUser($_POST['myusername'], $_POST['mypassword']);
+    }
+    catch (Exception $e)
+    {
+        echo $e->getMessage();
+        echo "<a href=\"main_login.php\">Try again</a>";
+    }
 	
 $goober = new BaseDAO();
 $db = $goober->connect();
