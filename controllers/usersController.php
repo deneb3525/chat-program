@@ -64,13 +64,14 @@ class usersController extends baseController{
         $password = stripslashes($password);
 
         $sql="SELECT * FROM users WHERE loginname='".$username."' and password='".$password."' and active='1'";
-        $result=mysqli_query($DBObj,$sql);
+        $usersModel = new usersModel();
+        $result = mysqli_query($DBObj,$sql);
+        $usersModel->create(mysqli_fetch_assoc($result));
         
         if($result->num_rows != 1)
             throw new Exception ("Wrong Username or Password");
-		while($row = mysqli_fetch_assoc($result)) {
-                    $this->set_session($row["userID"],$row["displayname"]);
-		}
+        
+        $this->set_session($usersModel->userID,$$usersModel->displayname);
     }
     
     private function set_session($userID, $displayname){
