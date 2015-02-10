@@ -8,7 +8,7 @@ try
         $usersController = controllerFactory::getUsersController();
         $row = $usersController->createUser($_POST['myusername'], $_POST['mypassword'],$_POST['mydisplayname']);
 		
-		header("location:index3.php");
+		header("location:index2.php");
 
     }
     catch (Exception $e)
