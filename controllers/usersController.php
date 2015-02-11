@@ -27,8 +27,8 @@ class usersController extends baseController{
         //$myusername = mysql_real_escape_string($myusername);
         //$mypassword = mysql_real_escape_string($mypassword);
 
-        $sql="SELECT * FROM users WHERE loginname='$myusername' and active='1'";
-        $result=mysqli_query($DBObj,$sql);
+        $sql="SELECT * FROM users WHERE loginname='%s' and active='1'";
+        $result = $DBObj->query($sql, array($myusername));
 
         // Mysql_num_row is counting table row
         $count = $result->num_rows;
@@ -38,10 +38,10 @@ class usersController extends baseController{
         if($count==0){
             // Add the username and password to the DB, then register the username and display name.
             // Register $myusername, $mypassword and redirect to file "login_success.php"
+
 			$mypasswordhash = password_hash($mypassword, PASSWORD_DEFAULT);
-            $sql="insert into chatroom.users (loginname, password, displayname, active) values ('$myusername', '$mypasswordhash', '$mydisplayname', 1);";
-            echo $sql;
-            mysqli_query($DBObj, $sql);
+            $sql="insert into chatroom.users (loginname, password, displayname, active) values ('%s', '%s', '%s', 1);";
+            $DBObj->query($sql, array($myusername, $mypasswordhash, $mydisplayname));
             $this->loginUser($myusername, $mypassword);
             return true;
         }
@@ -68,27 +68,27 @@ class usersController extends baseController{
 		$this->authenticateUser($username, $password);
     }
     
-    private function set_session($userID, $displayname){
+    private function set_session($userID, $displayname)
+    {
         session_start();
         $_SESSION['userID']=$userID;
         $_SESSION['displayname']=$displayname;
     }
 	
-	private function authenticateUser($username, $password){
-		$DBObj = $this->DBconnect();
+    private function authenticateUser($username, $password)
+    {   
+        $DBObj = $this->DBconnect();
+        $sql="SELECT * FROM users WHERE loginname='%s' and active='1'";
+        $result = $DBObj->query($sql, array($username));
         
-		$sql="SELECT * FROM users WHERE loginname='".$username."' and active='1'";
+        if($result->num_rows != 1)
+            throw new Exception ("Cannot find user.");
+
         $usersModel = new usersModel();
-        $result = mysqli_query($DBObj,$sql);
-		
-		if($result->num_rows != 1)
-            throw new Exception ("Wrong Username or Password");
-		
         $usersModel->create(mysqli_fetch_assoc($result));
-        
-		if($usersModel->comparePassword($password)){
-			$this->set_session($usersModel->userID,$usersModel->displayname);
-			return true;
-		}
-	}
+        if($usersModel->comparePassword($password)){
+            $this->set_session($usersModel->userID,$usersModel->displayname);
+            return true;
+        }
+    }
 }

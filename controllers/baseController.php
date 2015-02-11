@@ -13,6 +13,6 @@ class baseController {
         require_once 'BaseDAO.php';
 	
 	$baseDAO = new BaseDAO();
-	return $baseDAO->connect();
+	return $baseDAO;
     }
 }

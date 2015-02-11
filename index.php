@@ -3,7 +3,7 @@
 
     require_once 'controllers\controllerFactory.php';
 	if($_SESSION['userID']==null){
-		header("location:main_login.php");
+		header("location:views/main_login.php");
 	}
 
     $chatlogController = controllerFactory::getChatlogController();
@@ -38,7 +38,7 @@
 		
         <input type="text" id="userinput">
         <button id="send">Send</button>
-        <br><a href="logout.php">Log out </a>   
+        <br><a href="views/logout.php">Log out </a>   
   <div id="chat">
     <script id="chatline" type="text/html">
       <div class='line'><div class='user'>{{ user }}</div>{{ text }}</div>
