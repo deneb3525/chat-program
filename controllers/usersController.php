@@ -80,12 +80,10 @@ class usersController extends baseController{
         if($result->num_rows != 1)
             throw new Exception ("Wrong Username or Password");
 
-        if(password_verify($password, $usersModel->password)){
-            $this->set_session($usersModel->userID,$usersModel->displayname);
-            return true;
-        } else{
-            throw new Exception ("Wrong Username or Password");
+        $usersModel->create(mysqli_fetch_assoc($result));
+        if($usersModel->comparePassword($password)){
+                $this->set_session($usersModel->userID,$usersModel->displayname);
+                return true;
         }
     }
-    
 }

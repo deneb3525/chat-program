@@ -1,21 +1,19 @@
 <?php
 
 class BaseDAO {
+
     private $db;
     
     public function __construct() {
         $this->connect();
     }
 
-    public function connect()
-    {
-        $DB_SERVER = 'localhost';
-        $DB_USERNAME = 'root';
-        $DB_PASSWORD = '';
-        $DB_DATABASE = 'chatroom';
-        $this->db = mysqli_connect($DB_SERVER,$DB_USERNAME,$DB_PASSWORD,$DB_DATABASE);
-        if ($this->db->connect_error) {
-            die('Connect Error (' . $db->connect_errno . ') ' . $db->connect_error);
+    public function connect() {
+        $configSettings = parse_ini_file("dbconfig.ini");
+
+        $db = mysqli_connect($configSettings['DB_SERVER'],$configSettings['DB_USERNAME'],$configSettings['DB_PASSWORD'],$configSettings['DB_DATABASE']);
+        if ($db->connect_error) {
+                die('Connect Error (' . $db->connect_errno . ') ' . $db->connect_error);
         }
     }
     
