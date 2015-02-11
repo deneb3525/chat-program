@@ -1,7 +1,7 @@
 <?php
 
-require_once 'controllerFactory.php';
-require_once 'renderEngine.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/controllerFactory.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/renderEngine.php';
 
 class formListener
 {

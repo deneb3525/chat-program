@@ -1,9 +1,9 @@
 <?php
-    include_once 'header.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/views/header.php';
 
-    $configSettings = parse_ini_file("../configs/dbconfig.ini");
+    $configSettings = parse_ini_file($_SERVER['DOCUMENT_ROOT']."/configs/dbconfig.ini");
     $fayeServerURL = "http://".$configSettings['FAYE_SERVER'].":8000/faye";
-    require_once '../controllers\controllerFactory.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/controllerFactory.php';
 
     $chatlogController = controllerFactory::getChatlogController();
     $lines = $chatlogController->initializeChat();

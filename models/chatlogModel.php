@@ -3,7 +3,7 @@
 /* 
  * Only really used for initialization right now
  */
-require_once 'baseModel.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/models/baseModel.php';
 
 class chatlogModel extends baseModel
 {

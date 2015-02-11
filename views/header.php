@@ -13,11 +13,8 @@
 
     //check what pages is active
     $serverStr = explode('/', $_SERVER['REQUEST_URI']);
-    if(in_array('views', $serverStr)){
-        include_once '../controllers/renderEngine.php';
-    }else{
-        include_once 'controllers/renderEngine.php';
-    }
+    
+    include_once $_SERVER['DOCUMENT_ROOT'].'/controllers/renderEngine.php';
     
     $page = end($serverStr);
     //on external page, but logged in

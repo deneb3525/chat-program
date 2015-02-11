@@ -4,8 +4,8 @@
  * This should handle all user related logic
  * 
  */
-require_once 'baseController.php';
-require_once '../models/usersModel.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/baseController.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/models/usersModel.php';
 
 class usersController extends baseController{
     

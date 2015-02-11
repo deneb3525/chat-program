@@ -9,7 +9,7 @@ class BaseDAO {
     }
 
     public function connect() {
-        $configSettings = parse_ini_file("../configs/dbconfig.ini");
+        $configSettings = parse_ini_file($_SERVER['DOCUMENT_ROOT']."/configs/dbconfig.ini");
 
         $this->db = mysqli_connect($configSettings['DB_SERVER'],$configSettings['DB_USERNAME'],$configSettings['DB_PASSWORD'],$configSettings['DB_DATABASE']);
         if ($this->db->connect_error) {

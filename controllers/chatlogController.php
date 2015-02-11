@@ -1,7 +1,7 @@
 <?php
 
-require_once 'baseController.php';
-require_once '../models/chatlogModel.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/controllers/baseController.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/models/chatlogModel.php';
 
 class chatlogController extends baseController{
     

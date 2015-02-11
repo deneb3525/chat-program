@@ -17,6 +17,6 @@ print_r($_SESSION);
 
 You are logged out.
 
- <a href="main_login.php">Back to login</a>
+ <a href="<?= 'http://'.$_SERVER['HTTP_HOST'].'/views/main_login.php' ?>">Back to login</a>
 </body>
 </html> 

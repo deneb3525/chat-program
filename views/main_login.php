@@ -1,8 +1,8 @@
-<?php include_once 'header.php'; ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'].'/views/header.php'; ?>
 
 <table width="300" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
     <tr>
-    <form name="form1" method="post" action="../controllers/formListener.php">
+    <form name="form1" method="post" action="<?= 'http://'.$_SERVER['HTTP_HOST'].'/controllers/formListener.php' ?>">
         <td>
             <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#FFFFFF">
                 <tr>
@@ -28,4 +28,4 @@
     </form>
     </tr>
 </table>
-<a href="create_act.php">Create account </a>
+<a href="<?= 'http://'.$_SERVER['HTTP_HOST'].'/views/create_act.php' ?>">Create account </a>
