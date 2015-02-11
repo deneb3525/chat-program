@@ -2,6 +2,9 @@
     session_start();
 
     require_once 'controllers\controllerFactory.php';
+	if($_SESSION['userID']==null){
+		header("location:main_login.php");
+	}
 
     $chatlogController = controllerFactory::getChatlogController();
     $lines = $chatlogController->initializeChat();
