@@ -4,14 +4,14 @@
 
 session_start();
 if($_SESSION["userID"] == null){
-header("location:main_login.php");
+header("location:views/main_login.php");
 }
 ?>
 
 <html>
 <body>
 Login Successful
- <a href="logout.php">Log out </a> 
+ <a href="views/logout.php">Log out </a> 
  <br>
  <?php
  //print_r($_SESSION);

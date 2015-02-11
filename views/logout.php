@@ -20,6 +20,6 @@ print_r($_SESSION);
 
 You are logged out.
 
- <a href="login_success.php">Back to login</a>
+ <a href="views/login_success.php">Back to login</a>
 </body>
 </html> 

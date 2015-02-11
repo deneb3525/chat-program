@@ -8,7 +8,7 @@
         $usersController->loginUser($_POST['myusername'], $_POST['mypassword']);
 		 // Register $myusername, $mypassword and redirect to file "login_success.php"
 		
-        header("location:index2.php");
+        header("location:index.php");
 
     }
     catch (Exception $e)
