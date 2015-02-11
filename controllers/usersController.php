@@ -3,13 +3,9 @@
 /* 
  * This should handle all user related logic
  * 
- * Current files that you have that should have their logic pulled into here are:
- * checkcreation.php
- * checklogin.php
- * 
  */
 require_once 'baseController.php';
-require_once 'models/usersModel.php';
+require_once '../models/usersModel.php';
 
 class usersController extends baseController{
     
@@ -19,9 +15,9 @@ class usersController extends baseController{
         // username and password sent from form
         //TODO: put in Front end checks.  Rather than strip the data out, we should try to detect bad characters and throw an error.
         // To protect MySQL injection (more detail about MySQL injection)
-		if(preg_match("/\W/", $myusername) == 1){
-			throw new Exception("Invalid characters in username.");
-		}
+        if(preg_match("/\W/", $myusername) == 1){
+            throw new Exception("Invalid characters in username.");
+        }
         $myusername = stripslashes($myusername);
         $mypassword = stripslashes($mypassword);
         //$myusername = mysql_real_escape_string($myusername);
@@ -39,7 +35,7 @@ class usersController extends baseController{
             // Add the username and password to the DB, then register the username and display name.
             // Register $myusername, $mypassword and redirect to file "login_success.php"
 
-			$mypasswordhash = password_hash($mypassword, PASSWORD_DEFAULT);
+            $mypasswordhash = password_hash($mypassword, PASSWORD_DEFAULT);
             $sql="insert into chatroom.users (loginname, password, displayname, active) values ('%s', '%s', '%s', 1);";
             $DBObj->query($sql, array($myusername, $mypasswordhash, $mydisplayname));
             $this->loginUser($myusername, $mypassword);
@@ -62,10 +58,10 @@ class usersController extends baseController{
 	
     public function loginUser($username, $password)
     {
-		if(preg_match("/\W/", $username) == 1){
-			throw new Exception("Invalid characters in username.");
-		}
-		$this->authenticateUser($username, $password);
+        if(preg_match("/\W/", $username) == 1){
+            throw new Exception("Invalid characters in username.");
+        }
+        $this->authenticateUser($username, $password);
     }
     
     private function set_session($userID, $displayname)

@@ -1,11 +1,11 @@
 
 <table width="300" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
 <tr>
-<form name="form1" method="post" action="checkcreation.php">
+<form name="form1" method="post" action="../controllers/formListener.php">
 <td>
 <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#FFFFFF">
 <tr>
-<td colspan="3"><strong>Member Login </strong></td>
+<td colspan="3"><strong>New Account</strong></td>
 </tr>
 <tr>
 <td width="78">Username</td>
@@ -25,7 +25,7 @@
 <tr>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><input type="submit" name="Submit" value="Login"></td>
+<td><input type="submit" name="Submit" value="Register"></td>
 </tr>
 </table>
 </td>

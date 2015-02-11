@@ -1,12 +1,9 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html>
 <body>
 
 <?php
-
+session_start();
 print_r($_SESSION);
 
 // remove all session variables
@@ -20,6 +17,6 @@ print_r($_SESSION);
 
 You are logged out.
 
- <a href="views/login_success.php">Back to login</a>
+ <a href="main_login.php">Back to login</a>
 </body>
 </html> 
