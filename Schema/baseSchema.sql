@@ -1,7 +1,7 @@
 create table users(
 	userID int not null auto_increment,
 	loginname char(45),
-	password char(45),
+	password char(255),
 	displayname char(45),
 	active int,
 	PRIMARY KEY (userID)

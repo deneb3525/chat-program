@@ -74,16 +74,14 @@ class usersController extends baseController{
         $sql="SELECT * FROM users WHERE loginname='%s' and active='1'";
         $result = $DBObj->query($sql, array($username));
         
+        if($result->num_rows != 1)
+            throw new Exception ("Cannot find user.");
+
         $usersModel = new usersModel();
         $usersModel->create(mysqli_fetch_assoc($result));
-
-        if($result->num_rows != 1)
-            throw new Exception ("Wrong Username or Password");
-
-        $usersModel->create(mysqli_fetch_assoc($result));
         if($usersModel->comparePassword($password)){
-                $this->set_session($usersModel->userID,$usersModel->displayname);
-                return true;
+            $this->set_session($usersModel->userID,$usersModel->displayname);
+            return true;
         }
     }
 }

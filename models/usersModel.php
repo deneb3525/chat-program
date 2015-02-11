@@ -24,10 +24,10 @@ class usersModel extends baseModel
 	
 	public function comparePassword($suppliedPassword){
 		
-		if(password_verify($suppliedPassword, $this->password)){
-			return true;
-		} else{
-			throw new Exception ("Wrong Username or Password");
-		}
+            if(password_verify($suppliedPassword, $this->password)){
+                return true;
+            } else{
+                throw new Exception ("Wrong Username or Password");
+            }
 	}
 }
