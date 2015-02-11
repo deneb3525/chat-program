@@ -10,7 +10,7 @@ class chatlogController extends baseController{
         $db = $this->DBconnect();
 
         $sql="SELECT chatlog.messagetxt, users.displayname FROM chatlog inner join users on users.userID = chatlog.userID order by chatlog.idchatlog asc;";
-        $result = mysqli_query($db,$sql);
+        $result = $db->query($sql, array());
         
         $chatlogModel = new chatlogModel();
         return $chatlogModel->initialize($result);
