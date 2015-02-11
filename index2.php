@@ -62,7 +62,9 @@
         
 		var userName = "<?php echo $_SESSION['displayname'] ?>";
 		var userId = "<?php echo $_SESSION['userID']?>";
-                    
+        
+		
+		//set to config
         var client = new Faye.Client('http://localhost:8000/faye');
             
         $('#userinput').keyup(function(e) {
